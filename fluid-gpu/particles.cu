@@ -192,8 +192,8 @@ __global__ void computeForces(Particle* partBuffer, int n, float SPIKY_GRAD, flo
 			// compute viscosity force contribution
 			float2 visc = make_float2(pj->v.x - pi->v.x, pj->v.y - pi->v.y);
 
-			fvisc.x += visc.x * viscMultiplier;
-			fvisc.y += visc.y * viscMultiplier;
+			fvisc.x += VISC*MASS*visc.x/pj->rho * VISC_LAP*(H-r);
+			fvisc.y += VISC*MASS*visc.y/pj->rho * VISC_LAP*(H-r);
 		}
 	}
 

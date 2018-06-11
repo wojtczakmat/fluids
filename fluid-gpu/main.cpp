@@ -72,12 +72,15 @@ static void mousePressCallback(GLFWwindow *window, int button, int action, int m
 // Vertex shader
 const GLchar* vertexShaderSrc = GLSL(
 	in vec2 pos;
+	in float press;
+	out float out_press;
 	//out vec2 vDirection;
 
 	void main()
 	{
 		//gl_Position = vec4(-pos.x * 2, pos.y * 2, 0.0, 1.0);
 		gl_Position = vec4(pos.x / 400 - 1, pos.y / 400 - 1, 0.0, 1.0);
+		out_press = press;
 		//vDirection = direction;
 	}
 );
@@ -125,11 +128,12 @@ const GLchar* geometryShaderSrc = GLSL(
 
 // Fragment shader
 const GLchar* fragmentShaderSrc = GLSL(
+	in float out_press;
 	out vec4 outColor;
 
 	void main()
 	{
-		outColor = vec4(0,0,1,1); // black
+		outColor = vec4(out_press,0,1,1); // black
 	}
 );
 
@@ -207,7 +211,7 @@ int main(int argc, char **argv)
 	glLinkProgram(shaderProgram);
 	glUseProgram(shaderProgram);
 
-	int numOfParticles = 1000;
+	int numOfParticles = 5000;
     
     if (argc >= 2) {
         numOfParticles = strtol(argv[1], NULL, 10);
@@ -224,7 +228,11 @@ int main(int argc, char **argv)
 	// Specify the layout of the vertex data
 	GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
 	glEnableVertexAttribArray(posAttrib);
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+
+	GLint pressureAttrib = glGetAttribLocation(shaderProgram, "press");
+	glEnableVertexAttribArray(pressureAttrib);
+	glVertexAttribPointer(pressureAttrib, 1, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
 
 	while (!glfwWindowShouldClose(window))
 	{

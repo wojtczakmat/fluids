@@ -5,9 +5,10 @@ __align__(32)
 struct Particle
 {
 	float2 x;
+	float p;
 	float2 v;
 	float2 f;
-	float rho, p;
+	float rho;
 };
 
 void initCuda(GLuint vbo, int numberOfParticles);

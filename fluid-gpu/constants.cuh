@@ -6,7 +6,7 @@ __constant__ const static float H = 4.f; // kernel radius
 const static float HSQ = H*H; // radius^2 for optimization
 const static float MASS = 65.f; // assume all particles have the same mass
 __constant__ const static float VISC = 250.f; // viscosity constant
-__constant__ const static float DT = 0.0002f; // integration timestep
+__constant__ const static float DT = 0.0001f; // integration timestep
 
 // smoothing kernels defined in Müller and their gradients
 const static float POLY6 = 315.f/(65.f*M_PI*pow(H, 9.f));

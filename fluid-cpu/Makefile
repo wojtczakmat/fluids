@@ -6,7 +6,7 @@
 #OPENGL_LIBS       = -framework OpenGL -framework GLUT
 
 # # Linux
-INCLUDE_PATH      =
+INCLUDE_PATH      = -I./usr/include/
 LIBRARY_PATH      =
 OPENGL_LIBS       = -lglut -lGL -lX11
 

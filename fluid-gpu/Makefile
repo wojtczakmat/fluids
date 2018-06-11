@@ -6,8 +6,8 @@
 #OPENGL_LIBS       = -framework OpenGL -framework GLUT
 
 # # Linux
-INCLUDE_PATH      = -I/usr/local/cuda-9.1/targets/x86_64-linux/include/
-LIBRARY_PATH      = -L/usr/local/cuda-9.1/lib64/
+INCLUDE_PATH      = -I/opt/cuda/include/
+LIBRARY_PATH      = -L/opt/cuda/lib64/
 OPENGL_LIBS       = -lglut -lGL -lX11 -lGLEW -lglfw
 CUDA_LIBS         = -lcuda -lcudart
 
@@ -35,7 +35,7 @@ $(TARGET): $(OBJS)
 	$(LD) $(LFLAGS) $(OBJS) $(LIBS) -o $(TARGET)
 	
 obj/particles.o:
-	/usr/local/cuda-9.1/bin/nvcc -std=c++11 -c -arch=compute_50 -I. particles.cu -o obj/particles.o
+	nvcc -std=c++11 -c -arch=compute_50 -I. particles.cu -o obj/particles.o
 
 obj/main.o: obj/particles.o
 	$(CC) $(CFLAGS) -c main.cpp -o obj/main.o obj/particles.o
